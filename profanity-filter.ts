@@ -120,17 +120,26 @@ const fuzzyWordCheck = (text: string, word: string) => {
   return newText;
 };
 
+/**
+ * Checks if a text contains stop words and if so returns the first one found
+ *
+ * @param unformattedText The text to check
+ * @param UNFILTERED_STOP_WORDS List of stop words to check against
+ * @param RELAXED_STOP_WORDS List of relaxed stop words to check against. These are words that are allowed to be used in compound words but not on their own
+ *
+ * @returns The first stop word found or an empty string
+ */
 export const checkStopWords = (
   unformattedText: string,
   UNFILTERED_STOP_WORDS: string[],
-  relaxedStopWords: string[]
+  RELAXED_STOP_WORDS: string[]
 ) => {
   // do some basic checks before proceeding such as length, text only digits or text only symbols
   if (unformattedText.length < 3 || /^\d+$/.test(unformattedText)) {
     return false;
   }
   const STOP_WORDS = UNFILTERED_STOP_WORDS.filter(
-    (w) => !relaxedStopWords.includes(w)
+    (w) => !RELAXED_STOP_WORDS.includes(w)
   );
   let foundRelaxedStopWord = false;
 
@@ -165,7 +174,7 @@ export const checkStopWords = (
       }
     });
 
-    relaxedStopWords.forEach((word) => {
+    RELAXED_STOP_WORDS.forEach((word) => {
       // need to verify there is no space between the word and the replaced text
       if (
         replacedText.includes(word) &&
