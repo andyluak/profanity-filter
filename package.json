@@ -1,5 +1,5 @@
 {
-  "name": "profanity-filter",
+  "name": "profanity-filter-checker",
   "version": "1.0.1",
   "description": "",
   "main": "dist/index.min.js",
