@@ -1,6 +1,6 @@
 {
   "name": "profanity-filter-checker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "main": "dist/index.min.js",
   "files": [
