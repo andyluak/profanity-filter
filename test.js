@@ -1,4 +1,4 @@
-import { checkStopWords } from "profanity-filter-checker"
+import { checkStopWords } from './dist/index.min.js'
 
 const STOP_WORDS = [
   'shit', 'cunt'

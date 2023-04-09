@@ -105,12 +105,21 @@ const fuzzyWordCheck = (text, word) => {
     });
     return newText;
 };
-const checkStopWords = (unformattedText, UNFILTERED_STOP_WORDS, relaxedStopWords) => {
+/**
+ * Checks if a text contains stop words and if so returns the first one found
+ *
+ * @param unformattedText The text to check
+ * @param UNFILTERED_STOP_WORDS List of stop words to check against
+ * @param RELAXED_STOP_WORDS List of relaxed stop words to check against. These are words that are allowed to be used in compound words but not on their own
+ *
+ * @returns The first stop word found or an empty string
+ */
+const checkStopWords = (unformattedText, UNFILTERED_STOP_WORDS, RELAXED_STOP_WORDS) => {
     // do some basic checks before proceeding such as length, text only digits or text only symbols
     if (unformattedText.length < 3 || /^\d+$/.test(unformattedText)) {
         return false;
     }
-    const STOP_WORDS = UNFILTERED_STOP_WORDS.filter((w) => !relaxedStopWords.includes(w));
+    const STOP_WORDS = UNFILTERED_STOP_WORDS.filter((w) => !RELAXED_STOP_WORDS.includes(w));
     let foundRelaxedStopWord = false;
     const substitutionMapValues = Object.values(substitutionMap);
     const replacedText = unformattedText
@@ -139,7 +148,7 @@ const checkStopWords = (unformattedText, UNFILTERED_STOP_WORDS, relaxedStopWords
                 throw new Error(`${word} ${newText} is a stop word`);
             }
         });
-        relaxedStopWords.forEach((word) => {
+        RELAXED_STOP_WORDS.forEach((word) => {
             // need to verify there is no space between the word and the replaced text
             if (replacedText.includes(word) &&
                 replacedText.length !== word.length &&
