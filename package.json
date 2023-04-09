@@ -1,0 +1,24 @@
+{
+  "name": "profanity-filter",
+  "version": "1.0.1",
+  "description": "",
+  "main": "dist/index.min.js",
+  "files": [
+    "dist",
+    "dist/index.min.js"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && uglifyjs profanity-filter.js -c -m --output dist/index.min.js",
+    "bump": "npm version patch",
+    "publish": "npm run build && npm run bump && npm publish"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "semver": "^7.3.8",
+    "typescript": "^5.0.4",
+    "uglify-js": "^3.17.4"
+  }
+}
